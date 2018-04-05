@@ -1,3 +1,5 @@
+#!/bin/sh
+
 apt update
 apt upgrade
 apt install htop zip unzip locate git -y
