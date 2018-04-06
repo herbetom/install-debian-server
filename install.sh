@@ -67,7 +67,6 @@ read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] 
       systemctl restart apache2
       ;;
     *)
-    echo "Apache2 and PHP7.0 won't be installed"
     ;;
   esac
 
@@ -132,7 +131,6 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
 
         ;;
       *)
-        echo "Malicow won't be installed"
       ;;
     esac
 fi
@@ -158,7 +156,6 @@ if [ ! -d "/etc/webmin/" ]; then
         /etc/webmin/restart
         ;;
       *)
-        echo "Webmin won't be installed"
       ;;
     esac
 fi
