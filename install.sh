@@ -1,5 +1,10 @@
 #!/bin/sh
 
+beep(){
+  echo -en "\007"
+}
+
+beep
 read -r -p "Do you really want to start installing Software on the Server? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -14,7 +19,7 @@ read -r -p "Do you really want to start installing Software on the Server? [y/N]
 
 # upgrade server
 apt update
-apt upgrade
+apt upgrade -y
 
 #install some tools
 apt install htop zip unzip locate git -y
@@ -29,11 +34,12 @@ sudo add-apt-repository \
    $(lsb_release -cs) \
    stable"
 apt update
-apt install docker-ce
+apt install docker-ce -y
 docker run hello-world
 
 InstallWebserver=false
 
+beep
 read -r -p "Do you want to install Apache2 and PHP7.0? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
@@ -59,10 +65,13 @@ read -r -p "Do you want to install Apache2 and PHP7.0? [y/N] " response
     ;;
   esac
 
+InstallMailcow=false
 
+beep
 read -r -p "Do you want to install Mailcow (a Mail Server with Web Frontend)? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
+      InstallMailcow=true
       echo "Mailcow will now be installed"
 
       #install docker-compose
@@ -74,6 +83,7 @@ read -r -p "Do you want to install Mailcow (a Mail Server with Web Frontend)? [y
       cd /opt
       git clone https://github.com/mailcow/mailcow-dockerized
       cd mailcow-dockerized
+      beep
       ./generate_config.sh
 
       source /opt/mailcow-dockerized/mailcow.conf
@@ -119,6 +129,7 @@ read -r -p "Do you want to install Mailcow (a Mail Server with Web Frontend)? [y
     ;;
   esac
 
+beep
 read -r -p "Do you want to install webmin? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
