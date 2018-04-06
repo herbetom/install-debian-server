@@ -91,13 +91,14 @@ read -r -p "Do you want to install Mailcow (a Mail Server with Web Frontend)? [y
         echo "Creating a vhost for $MAILCOW_HOSTNAME"
 
         ### create virtual host rules file
+
+        maindomain=$(expr match "$MAILCOW_HOSTNAME" '.*\.\(.*\..*\)')
         echo "
             <VirtualHost *:80>
               ServerName $MAILCOW_HOSTNAME
+              ServerAlias autodiscover.$maindomain
+              ServerAlias autoconfig.$maindomain
               DocumentRoot /var/www/html
-              RewriteEngine on
-              RewriteCond %{SERVER_NAME} =mail.tomhe.de
-              RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
             </VirtualHost>" > $sitesAvailabledomain
         echo "New Virtual Host Created"
 
