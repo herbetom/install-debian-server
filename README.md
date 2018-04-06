@@ -15,3 +15,9 @@ And the following things optional:
 - Webmin
 - Apache2, PHP 7.0, certbot (Apache)
 - mailcow: dockerized (https://github.com/mailcow/mailcow-dockerized)
+
+
+## How To Use:
+
+Type the following in the console
+`bash <(wget -qO- https://raw.githubusercontent.com/herbetom/install-debian-server/master/install.sh)`
