@@ -80,10 +80,12 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
         InstallMailcow=true
         echo "Mailcow will now be installed"
 
-        #install docker-compose
-        echo "Docker Compose is now installed"
-        curl -L https://github.com/docker/compose/releases/download/$(curl -Ls https://www.servercow.de/docker-compose/latest.php)/docker-compose-$(uname -s)-$(uname -m) > /usr/local/bin/docker-compose
-        chmod +x /usr/local/bin/docker-compose
+        #install docker-compose if not already installed
+        if [ ! -d "/usr/local/bin/docker-compose" ]; then
+          echo "Docker Compose is now installed"
+          curl -L https://github.com/docker/compose/releases/download/$(curl -Ls https://www.servercow.de/docker-compose/latest.php)/docker-compose-$(uname -s)-$(uname -m) > /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+        fi
 
         #clone mailcow
         cd /opt
