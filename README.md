@@ -9,9 +9,9 @@ It will install the following:
 - git
 - locate
 - docker
-- docker-compose
-- mailcow: dockerized (https://github.com/mailcow/mailcow-dockerized)
+
+
+And the following things optional:
 - Webmin
-- Apache2
-- PHP 7.0
-- certbot (Apache)
+- Apache2, PHP 7.0, certbot (Apache)
+- mailcow: dockerized (https://github.com/mailcow/mailcow-dockerized)
