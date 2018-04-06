@@ -26,7 +26,7 @@ apt install htop zip unzip locate git -y
 updatedb
 
 #install docker if neccesary
-dpkg -s docker &> /dev/null
+docker -v &> /dev/null
 if [ ! $? -eq 0 ];
   then
     echo "Docker will now be installed"
