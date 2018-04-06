@@ -50,6 +50,7 @@ if [ ! $? -eq 0 ]; then
         DockerInstalled=true
         ;;
       *)
+      echo ""
       ;;
     esac
   else
@@ -80,6 +81,7 @@ read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] 
       systemctl restart apache2
       ;;
     *)
+    echo ""
     ;;
   esac
 
@@ -148,6 +150,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
         MailcowInstalled=true
         ;;
       *)
+      echo ""
       ;;
     esac
 fi
@@ -173,6 +176,7 @@ if [ ! -d "/etc/webmin/" ]; then
         /etc/webmin/restart
         ;;
       *)
+      echo ""
       ;;
     esac
 fi
@@ -182,6 +186,6 @@ echo "Scipt finished! Thanks for using! I hope everything works!"
 
 if [ $MailcowInstalled == "true" ]; then
   echo ""
-  echo "To start Mailcow the following command must be run 'docker-compose up -d'."
+  echo "To start Mailcow 'docker-compose up -d' must be run within the folder /opt/mailcow-dockerized/"
   echo "This will allow you to acces it. The default credentials are admin/moohoo'."
 fi
