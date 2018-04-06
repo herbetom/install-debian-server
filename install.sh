@@ -181,6 +181,7 @@ echo ""
 echo "Scipt finished! Thanks for using! I hope everything works!"
 
 if [ $MailcowInstalled == "true" ]; then
-  echo "to start Mailcow the following command must be run 'docker-compose up -d'."
+  echo ""
+  echo "To start Mailcow the following command must be run 'docker-compose up -d'."
   echo "This will allow you to acces it. The default credentials are admin/moohoo'."
 fi
