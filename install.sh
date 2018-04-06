@@ -113,7 +113,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
         source /opt/mailcow-dockerized/mailcow.conf
 
         #if WebServer is installed the MailServer Web Frontend will be Used by a Proxy
-        if [[ $WebserverInstalled=true ]]; then
+        if [ $WebserverInstalled == "true" ]; then
           sed -i "s/\(HTTP_PORT *= *\).*/\18080/" /opt/mailcow-dockerized/mailcow.conf
           sed -i "s/\(HTTP_BIND *= *\).*/\1127.0.0.1/" /opt/mailcow-dockerized/mailcow.conf
           sed -i "s/\(HTTPS_PORT *= *\).*/\18443/" /opt/mailcow-dockerized/mailcow.conf
