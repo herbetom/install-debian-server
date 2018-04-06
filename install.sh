@@ -26,7 +26,8 @@ apt install htop zip unzip locate git -y
 updatedb
 
 #install docker if neccesary
-if hash docker>/dev/null;
+dpkg -s docker &> /dev/null
+if [ ! $? -eq 0 ];
   then
     echo "Docker will now be installed"
     apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
@@ -39,9 +40,8 @@ if hash docker>/dev/null;
     apt update
     apt install docker-ce -y
     docker run hello-world
-    if hash docker>/dev/null; then echo "Docker wasn't installed with success!"; exit 1; fi
   else
-    echo "Docker was already installed on the system"
+    echo "Docker is already installed on the system"
 fi
 
 InstallWebserver=false
@@ -164,7 +164,7 @@ fi
 echo ""
 echo "Scipt finished! Thanks for using! I hope everything works!"
 
-if [ $inst == "true" ]; then
+if [ $InstallMailcow == "true" ]; then
   echo "to start Mailcow the following command must be run 'docker-compose up -d'."
   echo "This will allow you to acces it. The default credentials are admin/moohoo'."
 fi
