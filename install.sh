@@ -144,6 +144,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
           #certbot --apache
         fi
 
+        beep
         read -r -p "Do you want to make changes to the mailcow.conf? [y/N] " response
           case $response in
             [yY][eE][sS]|[yY])
