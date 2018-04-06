@@ -20,4 +20,5 @@ And the following things optional:
 ## How To Use:
 
 Type the following in the console
+
 `bash <(wget -qO- https://raw.githubusercontent.com/herbetom/install-debian-server/master/install.sh)`
