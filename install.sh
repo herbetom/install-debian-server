@@ -92,7 +92,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
         echo "Mailcow will now be installed"
 
         # install Docker if not installed
-        if [ $DockerInstalled == "true" ]; then
+        if [ ! $DockerInstalled == "true" ]; then
           installDocker
         fi
 
