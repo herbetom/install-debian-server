@@ -144,7 +144,15 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
           #certbot --apache
         fi
 
-        #nano mailcow.conf
+        read -r -p "Do you want to make changes to the mailcow.conf? [y/N] " response
+          case $response in
+            [yY][eE][sS]|[yY])
+              nano /opt/mailcow-dockerized/mailcow.conf
+              ;;
+            *)
+            ;;
+          esac
+
         docker-compose pull
         #the following command must be run to start Mailcow 'docker-compose up -d'
         MailcowInstalled=true
