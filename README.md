@@ -8,10 +8,9 @@ It will install the following:
 - zip, unzip
 - git
 - locate
-- docker
-
 
 And the following things optional:
+- docker
 - Webmin
 - Apache2, PHP 7.0, certbot (Apache)
 - mailcow: dockerized (https://github.com/mailcow/mailcow-dockerized)
