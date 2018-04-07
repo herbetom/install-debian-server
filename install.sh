@@ -109,7 +109,7 @@ read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot
       apt -y purge expect
 
       #allow root access with password
-      mysql -u root -e 'update mysql.user set plugin = 'mysql_native_password' where User='root'; FLUSH PRIVILEGES;'
+      mysql -u root -e "update mysql.user set plugin = 'mysql_native_password' where User='root'; FLUSH PRIVILEGES;"
 
       #install certbot
       apt install python-certbot-apache -t stretch-backports -y
