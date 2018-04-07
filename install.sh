@@ -60,13 +60,13 @@ fi
 
 WebserverInstalled=false
 beep
-read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] " response
+read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
-      echo "Apache2 and PHP7.0 will now be installed"
+      echo "Apache2, PHP7.0, MySQL and certbot will now be installed"
 
       #install Apache2 and PHP
-      apt install apache2 php7.0 -y
+      apt install apache2 php7.0 php7.0-mysql php7.0-json php7.0-imap php7.0-curl -y
       systemctl restart apache2
       a2enmod rewrite
       a2enmod headers
@@ -75,6 +75,38 @@ read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] 
       a2enmod proxy
       a2enmod proxy_http
       a2enmod proxy_http2
+
+      apt-get -y install mysql-server
+
+      apt install expect -y
+      DBROOTPASS=$(</dev/urandom tr -dc A-Za-z0-9 | head -c 28)
+      SECURE_MYSQL=$(expect -c "
+      set timeout 2
+      spawn mysql_secure_installation
+      expect \"Enter current password for root:\"
+      send \"\r\"
+      expect \"Set root password?\"
+      send \"y\r\"
+      expect \"New password:\"
+      send \"$DBROOTPASS\r\"
+      expect \"Re-enter new password:\"
+      send \"$DBROOTPASS\r\"
+      expect \"Would you like to setup VALIDATE PASSWORD plugin?\"
+      send \"n\r\"
+      expect \"Change the password for root ?\"
+      send \"y\r\"
+      expect \"Remove anonymous users?\"
+      send \"y\r\"
+      expect \"Disallow root login remotely?\"
+      send \"y\r\"
+      expect \"Remove test database and access to it?\"
+      send \"y\r\"
+      expect \"Reload privilege tables now?\"
+      send \"y\r\"
+      expect eof
+      ")
+      echo "$SECURE_MYSQL"
+      apt -y purge expect
 
       #install certbot
       apt install python-certbot-apache -t stretch-backports -y
@@ -233,6 +265,15 @@ if [ $MailcowInstalled == true ]; then
     esac
 
 fi
+
+if [ $WebserverInstalled == true ]; then
+  echo ""
+  echo "***************************************************"
+  echo "* The MySQL root user has the following password: *"
+  echo "*          $DBROOTPASS           *"
+  echo "***************************************************"
+fi
+
 
 echo "#############################################################"
 echo ""
