@@ -1,4 +1,6 @@
 #!/bin/sh
+# Script by Tom Herbers (07.04.2018)
+# Can be found on GitHub under https://github.com/herbetom/install-debian-server
 
 beep(){
   echo -en "\007"
@@ -22,10 +24,10 @@ beep
 read -r -p "Do you really want to start installing Software on the Server? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
-      echo "OK"
+      echo "OK, first the Existing Software will be updated!"
       ;;
     *)
-      echo "Script aborted"
+      echo "Script aborted!"
       exit 1
     ;;
   esac
@@ -274,6 +276,7 @@ if [ $WebserverInstalled == true ]; then
   echo "***************************************************"
   echo "* The MySQL root user has the following password: *"
   echo "*          $DBROOTPASS           *"
+  echo "*               You should note it!               *"
   echo "***************************************************"
 fi
 
