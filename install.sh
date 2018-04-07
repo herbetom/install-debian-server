@@ -59,6 +59,10 @@ if [ ! $? -eq 0 ]; then
 fi
 
 WebserverInstalled=false
+
+apache2 -v &> /dev/null
+if [ ! $? -eq 0 ]; then WebserverInstalled=true; fi
+
 beep
 read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot? [y/N] " response
   case $response in
@@ -93,10 +97,8 @@ read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot
       send \"$DBROOTPASS\r\"
       expect \"Would you like to setup VALIDATE PASSWORD plugin?\"
       send \"n\r\"
-      expect \"Change the password for root ?\"
-      send \"y\r\"
       expect \"Remove anonymous users?\"
-      send \"y\r\"
+      send \"Y\r\"
       expect \"Disallow root login remotely?\"
       send \"y\r\"
       expect \"Remove test database and access to it?\"
@@ -275,8 +277,8 @@ if [ $WebserverInstalled == true ]; then
 fi
 
 
-echo "#############################################################"
 echo ""
 echo "Scipt finished! Thanks for using! I hope everything works!"
 if [ $MailcowInstalled == true ]; then
   echo "The default credentials for mailcow are admin/moohoo."
+fi
