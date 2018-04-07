@@ -72,6 +72,9 @@ read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] 
       a2enmod headers
       a2enmod http2
       a2enmod ssl
+      a2enmod proxy
+      a2enmod proxy_http
+      a2enmod proxy_http2
 
       #install certbot
       apt install python-certbot-apache -t stretch-backports -y
@@ -130,19 +133,37 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
           ### create virtual host rules file
 
           maindomain=$(expr match "$MAILCOW_HOSTNAME" '.*\.\(.*\..*\)')
-          echo "
-              <VirtualHost *:80>
-                ServerName $MAILCOW_HOSTNAME
-                ServerAlias autodiscover.$maindomain
-                ServerAlias autoconfig.$maindomain
-                DocumentRoot /var/www/html
-              </VirtualHost>" > $sitesAvailabledomain
+          echo "<VirtualHost *:80>" > $sitesAvailabledomain
+          echo "  ServerName $MAILCOW_HOSTNAME" >> $sitesAvailabledomain
+          echo "  ServerAlias autodiscover.$maindomain" >> $sitesAvailabledomain
+          echo "  ServerAlias autoconfig.$maindomain" >> $sitesAvailabledomain
+          echo "  DocumentRoot \"/var/www/html\"" >> $sitesAvailabledomain
+          #echo "  <IfModule mod_ssl.c>" >> $sitesAvailabledomain
+          echo "  <Directory \"/var/www/html\">" >> $sitesAvailabledomain
+          echo "    allow from all" >> $sitesAvailabledomain
+          echo "    Options None" >> $sitesAvailabledomain
+          echo "    Require all granted" >> $sitesAvailabledomain
+          echo "  </Directory>" >> $sitesAvailabledomain
+          echo "  Protocols h2 http/1.1" >> $sitesAvailabledomain
+          echo "  ProxyPass / http://127.0.0.1:8080/" >> $sitesAvailabledomain
+          echo "  ProxyPassReverse / http://127.0.0.1:8080/" >> $sitesAvailabledomain
+          echo "  ProxyPreserveHost On" >> $sitesAvailabledomain
+          echo "  ProxyAddHeaders On" >> $sitesAvailabledomain
+          echo "  <If \"%{HTTPS} == 'on'\" >" >> $sitesAvailabledomain
+          echo "    RequestHeader set X-Forwarded-Proto \"https\"" >> $sitesAvailabledomain
+          echo "  </If>" >> $sitesAvailabledomain
+          #echo "  </IfModule>" >> $sitesAvailabledomain
+          echo "</VirtualHost>" >> $sitesAvailabledomain
+
           echo "New Virtual Host Created"
 
           a2ensite $MAILCOW_HOSTNAME
           service apache2 reload
 
-          #certbot --apache
+          #obtain ssl certificate
+          beep
+          certbot --apache --agree-tos --no-eff-email --redirect -d $MAILCOW_HOSTNAME -d autodiscover.$maindomain -d autoconfig.$maindomain
+
         fi
 
         beep
