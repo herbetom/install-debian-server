@@ -95,8 +95,6 @@ read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot
       send \"$DBROOTPASS\r\"
       expect \"Re-enter new password:\"
       send \"$DBROOTPASS\r\"
-      expect \"Would you like to setup VALIDATE PASSWORD plugin?\"
-      send \"n\r\"
       expect \"Remove anonymous users?\"
       send \"Y\r\"
       expect \"Disallow root login remotely?\"
@@ -109,6 +107,9 @@ read -r -p "Do you want to install Apache2, PHP7.0, MySQL as well as the certbot
       ")
       echo "$SECURE_MYSQL"
       apt -y purge expect
+
+      #allow root access with password
+      mysql -u root -p -e 'update mysql.user set plugin = 'mysql_native_password' where User='root'; FLUSH PRIVILEGES;'
 
       #install certbot
       apt install python-certbot-apache -t stretch-backports -y
