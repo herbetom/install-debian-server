@@ -212,11 +212,30 @@ if [ ! -d "/etc/webmin/" ]; then
     esac
 fi
 
-echo ""
-echo "Scipt finished! Thanks for using! I hope everything works!"
-
 if [ $MailcowInstalled == true ]; then
   echo ""
-  echo "To start Mailcow 'docker-compose up -d' must be run within the folder /opt/mailcow-dockerized/"
-  echo "This will allow you to acces it. The default credentials are admin/moohoo'."
+  beep
+  read -r -p "Do you want to start mailcow now? The default credentials are admin/moohoo. [y/N] " response
+    case $response in
+      [yY][eE][sS]|[yY])
+        cd /opt/mailcow-dockerized
+        docker-compose up -d
+        echo "Mailcow is now started!"
+        ;;
+      *)
+      echo ""
+      echo "***************************************************"
+      echo "* To start Mailcow 'docker-compose up -d' must be *"
+      echo "* run within the folder /opt/mailcow-dockerized/  *"
+      echo "* This will allow you to acces it.                *"
+      echo "***************************************************"
+      ;;
+    esac
+
 fi
+
+echo "#############################################################"
+echo ""
+echo "Scipt finished! Thanks for using! I hope everything works!"
+if [ $MailcowInstalled == true ]; then
+  echo "The default credentials for mailcow are admin/moohoo."
