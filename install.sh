@@ -58,13 +58,12 @@ if [ ! $? -eq 0 ]; then
     echo "Docker is already installed on the system. No need to install"
 fi
 
-=false
+WebserverInstalled=false
 beep
 read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] " response
   case $response in
     [yY][eE][sS]|[yY])
       echo "Apache2 and PHP7.0 will now be installed"
-      WebserverInstalled=false
 
       #install Apache2 and PHP
       apt install apache2 php7.0 -y
@@ -79,6 +78,8 @@ read -r -p "Do you want to install Apache2 and PHP7.0 as well as certbot? [y/N] 
 
       #restart Apache2
       systemctl restart apache2
+
+      WebserverInstalled=true
       ;;
     *)
     echo ""
@@ -115,7 +116,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
         source /opt/mailcow-dockerized/mailcow.conf
 
         #if WebServer is installed the MailServer Web Frontend will be Used by a Proxy
-        if [ $WebserverInstalled == "true" ]; then
+        if [ $WebserverInstalled == true ]; then
           sed -i "s/\(HTTP_PORT *= *\).*/\18080/" /opt/mailcow-dockerized/mailcow.conf
           sed -i "s/\(HTTP_BIND *= *\).*/\1127.0.0.1/" /opt/mailcow-dockerized/mailcow.conf
           sed -i "s/\(HTTPS_PORT *= *\).*/\18443/" /opt/mailcow-dockerized/mailcow.conf
@@ -193,7 +194,7 @@ fi
 echo ""
 echo "Scipt finished! Thanks for using! I hope everything works!"
 
-if [ $MailcowInstalled == "true" ]; then
+if [ $MailcowInstalled == true ]; then
   echo ""
   echo "To start Mailcow 'docker-compose up -d' must be run within the folder /opt/mailcow-dockerized/"
   echo "This will allow you to acces it. The default credentials are admin/moohoo'."
