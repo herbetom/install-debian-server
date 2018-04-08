@@ -171,25 +171,23 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
 
           maindomain=$(expr match "$MAILCOW_HOSTNAME" '.*\.\(.*\..*\)')
           echo "<VirtualHost *:80>" > $sitesAvailabledomain
-          echo "  ServerName $MAILCOW_HOSTNAME" >> $sitesAvailabledomain
-          echo "  ServerAlias autodiscover.$maindomain" >> $sitesAvailabledomain
-          echo "  ServerAlias autoconfig.$maindomain" >> $sitesAvailabledomain
-          echo "  DocumentRoot \"/var/www/html\"" >> $sitesAvailabledomain
-          #echo "  <IfModule mod_ssl.c>" >> $sitesAvailabledomain
-          echo "  <Directory \"/var/www/html\">" >> $sitesAvailabledomain
-          echo "    allow from all" >> $sitesAvailabledomain
-          echo "    Options None" >> $sitesAvailabledomain
-          echo "    Require all granted" >> $sitesAvailabledomain
-          echo "  </Directory>" >> $sitesAvailabledomain
-          echo "  Protocols h2 http/1.1" >> $sitesAvailabledomain
-          echo "  ProxyPass / http://127.0.0.1:8080/" >> $sitesAvailabledomain
-          echo "  ProxyPassReverse / http://127.0.0.1:8080/" >> $sitesAvailabledomain
-          echo "  ProxyPreserveHost On" >> $sitesAvailabledomain
-          echo "  ProxyAddHeaders On" >> $sitesAvailabledomain
-          echo "  <If \"%{HTTPS} == 'on'\" >" >> $sitesAvailabledomain
-          echo "    RequestHeader set X-Forwarded-Proto \"https\"" >> $sitesAvailabledomain
-          echo "  </If>" >> $sitesAvailabledomain
-          #echo "  </IfModule>" >> $sitesAvailabledomain
+          echo "ServerName $MAILCOW_HOSTNAME" >> $sitesAvailabledomain
+          echo "ServerAlias autodiscover.$maindomain" >> $sitesAvailabledomain
+          echo "ServerAlias autoconfig.$maindomain" >> $sitesAvailabledomain
+          echo "DocumentRoot \"/var/www/html\"" >> $sitesAvailabledomain
+          echo "<Directory \"/var/www/html\">" >> $sitesAvailabledomain
+          echo "  allow from all" >> $sitesAvailabledomain
+          echo "  Options None" >> $sitesAvailabledomain
+          echo "  Require all granted" >> $sitesAvailabledomain
+          echo "</Directory>" >> $sitesAvailabledomain
+          echo "Protocols h2 http/1.1" >> $sitesAvailabledomain
+          echo "ProxyPass / http://127.0.0.1:8080/" >> $sitesAvailabledomain
+          echo "ProxyPassReverse / http://127.0.0.1:8080/" >> $sitesAvailabledomain
+          echo "ProxyPreserveHost On" >> $sitesAvailabledomain
+          echo "ProxyAddHeaders On" >> $sitesAvailabledomain
+          echo "<If \"%{HTTPS} == 'on'\" >" >> $sitesAvailabledomain
+          echo "  RequestHeader set X-Forwarded-Proto \"https\"" >> $sitesAvailabledomain
+          echo "</If>" >> $sitesAvailabledomain
           echo "</VirtualHost>" >> $sitesAvailabledomain
 
           echo "New Virtual Host Created"
