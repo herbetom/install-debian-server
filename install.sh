@@ -9,9 +9,9 @@ beep(){
 installDocker(){
   echo "Docker will now be installed"
   apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
-  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+  curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
   apt-key fingerprint 0EBFCD88
-  sudo add-apt-repository \
+  add-apt-repository \
      "deb [arch=amd64] https://download.docker.com/linux/debian \
      $(lsb_release -cs) \
      stable"
@@ -229,7 +229,7 @@ if [ ! -d "/etc/webmin/" ]; then
         echo "Webmin will now be installed"
         #install webmin
         echo 'deb https://download.webmin.com/download/repository sarge contrib' >> /etc/apt/sources.list
-        curl -fsSL http://www.webmin.com/jcameron-key.asc | sudo apt-key add -
+        curl -fsSL http://www.webmin.com/jcameron-key.asc | apt-key add -
         apt update
         apt install webmin -y
 
