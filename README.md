@@ -31,7 +31,7 @@ Type the following in the console
 
 During the installation the script will ask you what you want to install (yes or now). 
 
-If you install Mailcow you will get asked what Hostname (FQDN) you want to use. I personaly use usually something like "mail.example.org".
+If you install Mailcow you will get asked what Hostname (FQDN) you want to use. I personaly use usually something like `mail.example.org'.
 
 ## Additional Infos
 ### Mailcow
