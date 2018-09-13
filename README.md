@@ -28,3 +28,7 @@ https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-dns/#the-minimal-
 Type the following in the console
 
 `bash <(wget -qO- https://raw.githubusercontent.com/herbetom/install-debian-server/master/install.sh)`
+
+During the installation the script will ask you what you want to install (yes or now). 
+
+If you install Mailcow you will get asked what Hostname (FQDN) you want to use. I personaly use usually something like "mail.example.org".
