@@ -32,3 +32,13 @@ Type the following in the console
 During the installation the script will ask you what you want to install (yes or now). 
 
 If you install Mailcow you will get asked what Hostname (FQDN) you want to use. I personaly use usually something like "mail.example.org".
+
+## Additional Infos
+### Mailcow
+- Mailcow gets installed into `/opt/mailcow-dockerized/`
+- If you want to update Mailcow you should do according to [Mailcow: Automatic update](https://mailcow.github.io/mailcow-dockerized-docs/install-update/#automatic-update) the following:
+  - go into the Mailcow directory `cd /opt/mailcow-dockerized/`
+  - `./update.sh`
+  - if updates where found (you have to read the output) you have to run `./update.sh` 
+  - you will have to allow stopping all Mailcow Docker Containes with `y`.
+  - now it will update and start Mailcow again after it has finished.
