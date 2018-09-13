@@ -15,6 +15,13 @@ And the following things optional:
 - Apache2, PHP 7.0, certbot (Apache)
 - mailcow: dockerized (https://github.com/mailcow/mailcow-dockerized)
 
+## Before you start:
+If you plan on Installing Mailcow you should before you start the installation update your DNS according to the following 
+minimal DNS configuration. Also you maybe have to wait that the DNS Servers used by LetsEncrypt are updated before you start. 
+Otherwise you will probably have problems while the installation because the LetsEncypt client will run into errors.  
+
+https://mailcow.github.io/mailcow-dockerized-docs/prerequisite-dns/#the-minimal-dns-configuration
+
 
 ## How To Use:
 
