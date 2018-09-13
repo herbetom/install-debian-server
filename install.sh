@@ -197,8 +197,7 @@ if [ ! -d "/opt/mailcow-dockerized/" ]; then
 
           #obtain ssl certificate
           beep
-          certbot --apache --agree-tos --redirect -d $MAILCOW_HOSTNAME -d autodiscover.$maindomain -d autoconfig.$maindomain
-
+          certbot --authenticator standalone --installer apache --agree-tos --redirect --pre-hook "apachectl -k stop" --post-hook "apachectl -k start" -d $MAILCOW_HOSTNAME -d autodiscover.$maindomain -d autoconfig.$maindomain
         fi
 
         beep
